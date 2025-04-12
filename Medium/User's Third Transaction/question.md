@@ -1,55 +1,54 @@
-## Problem Statement
+## SQL Interview Question: Third Transaction Per User
 
-Given a table of candidates and their skills, you're tasked with finding the candidates best suited for an open Data Science job. You want to find candidates who are proficient in **Python, Tableau, and PostgreSQL**.
-
-Write a query to list the candidates who possess all of the required skills for the job. Sort the output by `candidate_id` in ascending order.
+This is the same question as problem #11 in the SQL Chapter of *Ace the Data Science Interview*!  
 
 ---
 
-## Assumption:
-
-There are no duplicates in the `candidates` table.
-
----
-
-## candidates Table:
-
-| Column Name  | Type    |
-|-------------|---------|
-| candidate_id | integer |
-| skill        | varchar |
+### 📋 Problem Statement  
+Assume you are given the table below on **Uber transactions made by users**.  
+Write a query to **obtain the third transaction of every user**.  
+Output the `user_id`, `spend`, and `transaction_date`.
 
 ---
 
-## Example Input:
-
-| candidate_id | skill       |
-|-------------|------------|
-| 123         | Python     |
-| 123         | Tableau    |
-| 123         | PostgreSQL |
-| 234         | R          |
-| 234         | PowerBI    |
-| 234         | SQL Server |
-| 345         | Python     |
-| 345         | Tableau    |
+### 🧾 `transactions` Table Structure
+| Column Name       | Type      |
+|------------------|-----------|
+| user_id          | integer   |
+| spend            | decimal   |
+| transaction_date | timestamp |
 
 ---
 
-## Expected Output:
+### 🧪 Example Input (`transactions` Table)
 
-| candidate_id |
-|-------------|
-| 123         |
+| user_id | spend  | transaction_date       |
+|---------|--------|------------------------|
+| 111     | 100.50 | 01/08/2022 12:00:00    |
+| 111     | 55.00  | 01/10/2022 12:00:00    |
+| 121     | 36.00  | 01/18/2022 12:00:00    |
+| 145     | 24.99  | 01/26/2022 12:00:00    |
+| 111     | 89.60  | 02/05/2022 12:00:00    |
 
 ---
 
-## SQL Query:
+### ✅ Example Output
 
-```sql
-SELECT candidate_id
-FROM candidates
-WHERE skill IN ('Python', 'Tableau', 'PostgreSQL')
-GROUP BY candidate_id
-HAVING COUNT(DISTINCT skill) = 3
-ORDER BY candidate_id ASC;
+| user_id | spend  | transaction_date       |
+|---------|--------|------------------------|
+| 111     | 89.60  | 02/05/2022 12:00:00    |
+
+---
+
+### 💡 Explanation
+User `111` is the only one with at least **three transactions**, so we return the **third transaction** sorted by date.
+
+---
+
+### 🔔 Note
+The dataset you are querying against **may have different input & output** – this is just an example!
+
+---
+
+### 📘 P.S.
+For more Uber SQL interview tips & problems, check out the **Uber SQL Interview Guide**.
