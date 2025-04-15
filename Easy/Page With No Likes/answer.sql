@@ -1,3 +1,4 @@
-SELECT COUNT(*) FILTER( WHERE device_type = 'laptop') as laptop_views,
-       COUNT(*) FILTER( WHERE device_type in ('phone', 'tablet')) as laptop_views
-FROM viewership
+SELECT page_id
+FROM pages as pg
+EXCEPT
+SELECT page_id from page_likes
